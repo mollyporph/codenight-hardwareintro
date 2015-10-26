@@ -1,5 +1,6 @@
 In this blogpost I'll try to backtrack on the previous code night on "Introduction to hardware programming" and go through the examples and principles that we touched on and explain them in a lecture-oriented manner.
 I'll also go abit further than the code night and give examples in python and on subjects that were not included in the code night. 
+After writing this for a while I noticed that there would be a _lot_ of material, so I'll chop this up in easily consumed chunks :)
 
 For most of the examples we will be using Autodesks free circuit-simulator 123dcircuits, which actually has arduino-boards that you can program as well! A great platform and way to get started on arduino-programming without having to invest on any hardware!
 
@@ -54,6 +55,81 @@ R= (3-2.2)/0.02 = 40 Ohm and we get a nice somewhat 0.044 watts out of our LED :
 
 The stripes on the resistor denote the resistance, but is based on an infuriating system which relies on you having a fantastic memory. So just go ahead and use a calculator, like this one: http://www.hobby-hour.com/electronics/resistorcalculator.php
 Enter the resistor value and press "display resistor" to get a visual representation of it, or select the different bands and "calculate" to see the resistor value. 
-The last band is "tolerance" which is a percentage of how far away that resistance can be from the denoted value
+The last band is "tolerance" which is a percentage of how far away that resistance can be from the denoted value.
 
+
+
+Hardware _programming_ you said?
+
+I apologize for the long and tedious introduction, but as David Allan Coe put it, "It is not the beauty of a building you should look at; it's the construction of the foundation that will stand the test of time".
+Let us deep dive into the HIGHs and LOWs of hardware programming (pun intended). 
+
+Puns and pins!
+We'll start with GPIO. The gpio is the header pins of raspberry pi and arduino boards these can "read" and "write" a signal, high (on) and low (off). There's also a special trick called PWM that we'll get into later.
+
+The pins are normally numbered, and some special pins exist. The common special pins on most boards are 3.3v and 5v pins, which supply the respective charge. GND, which is ground and TX/RX which is serial output and input.
+
+Blinkenlights!
+
+For our first real hardware programming example we'll extend our previous 123d circuit and add an arduino rev.
+Instead of the battery we'll connect one of the pins without the squiggly line (~), this is the symbol for PWM, which we will get in to later. For the example I chose pin 2.
+We'll connect the negative or ground wire to GND on the board.
+
+A really important thing to bear in mind is that the output voltage of the arduino pins is 5 volt and the raspberry pi ones are 3.3v, so we need to adjust our resistor accordingly!
+
+Arduino
+Arduino uses a heavily modifed version of C and uses two functions, setup() and loop().
+Setup will be run once at startup and loop will be called consecutivly and only stop when you stop the program.
+
+We'll dive right in to the code of the blinking LED
+--pre--
+
+int led = 2;
+
+// the setup routine runs once when you press reset:
+void setup() {
+  // initialize the digital pin as an output.
+  pinMode(led, OUTPUT);
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);               // wait for a second
+  digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
+  delay(1000);               // wait for a second
+}
+--endpre--
+In the setup we call pinMode() which sets a pin to OUTPUT or INPUT based on your need.
+In the loop we write HIGH (on) to the led-pin, then wait for a second, then write LOW (off) to the led-ping and waiting yet another second. Which gives us a blinking light.
+
+digitalWrite might sound complicated, and I personally find it a wierd name for something that only writes 1 or 0, or reads 1 or 0 (in the case of digitalRead).
+
+Raspberry pi
+On the PI-side I'm sticking with raspbian and python, but might update the examples with windows 10 IoT-core and c# later.
+
+--pre--
+import RPI.GPIO as GPIO
+import time
+led = 4
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(led,GPIO.OUT)
+while(True):
+	GPIO.output(led,True)
+	time.sleep(1)  #sleep in seconds
+	GPIO.output(led,False)
+	time.sleep(1)
+
+--endpre--
+
+The raspberry pi examples has some extra things that we'll need to cover. Firstly, it needs to import the GPIO-class from RPI and it needs to import time to do delays.
+This due to the fact that python is not a specialised language for rasperry pi or hardware programming, like the heavily modified arduino C-language
+Secondly we need to set the pin-layout, we set this to BCM, which gives us this layout (http://www.raspberrypi-spy.co.uk/wp-content/uploads/2012/06/Raspberry-Pi-GPIO-Layout-Model-B-Plus-rotated-2700x900-1024x341.png)
+Which means that to use gpio-pin 4, we need to plug it in to the board pin 7. 
+
+on the raspberry pi we will have to supply our own loop in the form of a standard While-loop.
+
+
+This ends the first part of the series on hardware programming, stay tuned as I will rapidly post sequels :)!
+Live long and prototype!
 
