@@ -24,5 +24,36 @@ As you can see, the "+" and "-"-denoted lanes are connect all the way from the t
 There is also normally a break in the middle, so the lanes on opposite sides are not connected.
 This is why the black cable in the 123d-example above is connected to the resistor (the sausage-looking thing with colored stripes) without the cable actually touching it.
 
-In the example we connect a regular clock battery to a led and a resitor
+In the example we connect a regular 3.3v clock battery to a led and a resistor. We'll go through the components one by one
+
+The battery
+
+We're using a 3v clock battery, formally called a button cell. Button cells are great for long running components due to their low self-discharge. So they won't run out while not used.
+Ours is a 3 volt one, which is pretty standard.
+
+The LED
+
+A light emitting diode is as the name suggest, something that emits light, when supplied with a charge, it glows.
+The diode part of the name is pretty significant, a diode is a semiconductor (https://en.wikipedia.org/wiki/Semiconductor) which can only conduct in one direction (assymetric conductance).
+What this means is that the direction we plug this component in counts. It will only work if we plug the + side to the Anode and the - side to the Cathode. On LEDs the anode is usually the longer leg and the cathode side is flat on the "bulb".
+And LED is usually not operated at high current, which is why we need our third component.
+
+The Resistor
+-Resistance is f..fruitful!
+ 
+Resistors are used to lower the current of a circuit, a great question that we got during the code night is why the resistor was placed "after" the led, and the answer is that it does not really matter. 
+You can place it before or after a component or at the end or beginning of the circuit, as long as it is in series with your the load that you want to lower the current for. Resistors work abit different in parallel. 
+I wont go in on the details of it but it's important to know if you ever find yourself in a situation where you'll be putting resistors in parallel. You can read up more on it here: (https://en.wikipedia.org/wiki/Series_and_parallel_circuits)
+
+The current is calculated with Ohm's law (https://en.wikipedia.org/wiki/Ohm%27s_law) which states that the current is the potential difference between two points in the current(charge in volts) divided with the resistance(in ohm Ω)
+Ohms law can be deduced to I=V/R  where I is current, V is charge and R is resistance
+The operating specs for the LED says that it's happiest with 20milliampere and that its load is 2.2 volt.
+
+Since charge is the potential difference between two points, we calculate the needed resistance with this formula: R = (Vsource - Vled)/Iled where Vsource is 3 volt (our battery), VLed is 2.2 volt and Iled is 20milliampere 
+R= (3-2.2)/0.02 = 40 Ohm and we get a nice somewhat 0.044 watts out of our LED :)!
+
+The stripes on the resistor denote the resistance, but is based on an infuriating system which relies on you having a fantastic memory. So just go ahead and use a calculator, like this one: http://www.hobby-hour.com/electronics/resistorcalculator.php
+Enter the resistor value and press "display resistor" to get a visual representation of it, or select the different bands and "calculate" to see the resistor value. 
+The last band is "tolerance" which is a percentage of how far away that resistance can be from the denoted value
+
 
