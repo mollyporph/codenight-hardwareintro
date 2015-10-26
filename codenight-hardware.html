@@ -1,4 +1,28 @@
 In this blogpost I'll try to backtrack on the previous code night on "Introduction to hardware programming" and go through the examples and principles that we touched on and explain them in a lecture-oriented manner.
 I'll also go abit further than the code night and give examples in python and on subjects that were not included in the code night. 
 
-As with most things, we will start with the basics, electricity and circuits!
+For most of the examples we will be using Autodesks free circuit-simulator 123dcircuits, which actually has arduino-boards that you can program as well! A great platform and way to get started on arduino-programming without having to invest on any hardware!
+
+As with most things, we will start with the basics: electricity and circuits!
+A direct current circuit http://macao.communications.museum/eng/exhibition/secondfloor/moreinfo/2_3_1_DCCircuit.html has a positive and negative(ground) end and a load between them.
+Electricity will always choose the shortest or "easiest" path to complete the circuit. 
+A circuit where the easiest path contains no load is called a short-circuit and you don't want one of those :)
+
+Conventional and electron flow notations -big
+One of the major misconceptions about electricity is how it flows. In circuit schematics the flow will always be from positive to negative(conventional flow notation). But in reality it flows from negative to positive (electron flow notation)
+This was never changed after the discovery due to the widespread usage of the conventional flow notation. And also the association of positive to an "abundance"" and negative with a "deficite".
+A real life circuit is filled with negativly charged electrons flowing from negative to positive poles.
+Some of you sciency-people might object that there are also positivly charged protons in the circuit, and while this is true and while they are of equal charge of the electrons, they are stationary in solid metals, so we don't need to account for them.
+Albeit if you were, stupidly enough, about to electrocute yourself, the charge would not be made out of electrons, but instead of negative and positive-charged atoms (ions) I.E positive sodium and potassium atoms, negative chlorine and so on.
+
+Your first circuit! --big
+A really basic circuit that still holds educational value is that of a glowing LED, like the one we have here: https://123d.circuits.io/circuits/1154693-single-led-circuit (click start simulation to see it work).
+The first thing we need to elaborate is that big gray slab with holes in it. It's a breadboard and it will be one of your best friends in your prototyping future :)!
+A breadboard is a prototyping-board that allows you to connect components without soldering them, allowing you to reuse them and rearrange them to taste.
+A breadboard works with strips of metal plates below the holes which is best explained with an image (https://cdn.sparkfun.com/assets/3/d/f/a/9/518c0b34ce395fea62000002.jpg)
+As you can see, the "+" and "-"-denoted lanes are connect all the way from the top to the bottom and the other lanes are connected horizontally on just the holes in that lane (usually 5). 
+There is also normally a break in the middle, so the lanes on opposite sides are not connected.
+This is why the black cable in the 123d-example above is connected to the resistor (the sausage-looking thing with colored stripes) without the cable actually touching it.
+
+In the example we connect a regular clock battery to a led and a resitor
+
